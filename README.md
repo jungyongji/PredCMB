@@ -154,7 +154,7 @@ If you execute the command below, you perform a differential analysis of the gen
 
 
 ```
-$ Rscript run_prediction.R -i genefamilies_ex.tsv -m metadata_ex.tsv -o output.tsv -r "Control" -gb interaction_ex.tsv
+$ Rscript run_prediction.R -i genefamilies_ex.tsv -m metadata_ex.tsv -o output.tsv -r "Control" -gb interaction_ex.tsv -p 0.05
 ```
 
 
