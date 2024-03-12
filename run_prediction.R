@@ -20,19 +20,19 @@ for (libr in library_requirement){
 parser <- ArgumentParser()
 
 parser$add_argument("-i", "--input", action='store',
-                    help="input_data",dest = 'gene_families')
+                    help="Count data from microbial genefamily",dest = 'gene_families')
 parser$add_argument("-m", "--metadata", action='store',
-                    help="input_metadata")
+                    help="The total group of sampels")
 parser$add_argument("-o", "--output", action='store',
-                    help="output")
+                    help="Predicted individual metabolites")
 parser$add_argument("-r", "--reference", type='character', action = 'store',
-                    help="reference")
+                    help="A control group under certein conditions")
 parser$add_argument("-c", "--core", type='integer', default=1, 
-                    help="Number of threads")
+                    help="The number of R processes")
 parser$add_argument("-gb", "--mgx_mbx", action='store',
-                    help="output", dest = 'gene_metabolite')
+                    help="Enzymatic gene-metabolite interaction", dest = 'gene_metabolite')
 parser$add_argument("-p", "--pvalue", type='double', action='store',
-                    help="set the p-value", dest = 'pvalue')
+                    help="Threshold of p-value", dest = 'pvalue')
 
 args <- parser$parse_args()
 

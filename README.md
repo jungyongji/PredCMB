@@ -1,5 +1,5 @@
 # PredCMB
-**PredCMB** (**Pred**iction of **c**hanges in **m**eta**b**olites from shotgun metagenome) is a tool that predicts changes in individual metabolites from shotgun metagenomic sequencing data utilizing microbial gene-metabolite interaction
+**PredCMB** (**Pred**iction of **c**hanges in **m**eta**b**olites from shotgun metagenome) is a tool that predicts changes in individual metabolites from shotgun metagenomic sequencing data utilizing microbial gene-metabolite interaction.
 
 - - -
 
@@ -163,17 +163,19 @@ $ Rscript run_prediction.R -i genefamilies_ex.tsv -m metadata_ex.tsv -o output.t
 ## Example output ##
 
 
-The output file provides the KEGG compound identity of the predicted metabolite, the number of the enzyme gene family involved in metabolite production, the amount of change with a sign, and the p-value. It is with a significant p-value that the metabolites around which most significant microbial gene family abundance changes occur.
+The output file provides a comprehensive overview of predicted metabolite changes based on microbial gene family abundance. Each entry includes the KEGG compound identity (metabolite_KEGG_ID), the name of the metabolite (metabolite_name), its class (metabolite_class_name), the z-value indicating the magnitude and direction of change (metabolite_z_value), and statistical significance measures (p-value and adjusted p-value).
+
 
 
 ```
-  metabolite genes statistics p-value adj-pvalue
-1     C00084     3    -4.4695 0.04431    0.00765
-2     C00005    12    -1.8014 0.38807    0.00765
-3     C05744     1    -2.9444 0.14049    0.00765
-4     C03508     1     2.2408 0.14001    0.68238
-5     C00199     4    -2.5539 0.19386    0.00765
-6     C00310     1     2.1803 0.14570    0.68238
+  metabolite_KEGG_ID metabolite_name metabolite_class_name metabolite_z_value statistics metabolite_p-value metabolite_adjusted_p-value
+1     C00005  NADPH Benzenediols  7.7598  4.82E-07  0.00015247
+2     C00017  Protein NA  0.1532  0.31934 0.45353
+3     C00021  S-Adenosyl-L-homocysteine Lactones  -0.58743  0.12552 0.2204
+4     C00022  Pyruvate  Alpha-keto acids and derivatives  6.3454  3.00E-05  0.0031599
+5     C00024  Acetyl-CoA  Carbohydrates and carbohydrate conjugates 7.8399  6.53E-06  0.001031
+6     C00025  L-Glutamate Amino acids, peptides, and analogues  7.8941  5.66E-06  0.001031
+
 ```
 
 
@@ -187,7 +189,7 @@ usage: run_prediction.R [-h] [-i INPUT_CPM_FILE] [-g SAMPLE_GROUP_FILE]
                         [-gb ENZYME_METABOLITE_FILE]
 
 optional arguments:
-  -h, --help            show this help message and exit
+  -h, --help            Show this help message and exit
   -i INPUT_CPM_FILE, --input INPUT_CPM_FILE
                         Count data from microbial genefamily [REQUIRED]
   -g SAMPLE_GROUP_FILE, --group SAMPLE_GROUP_FILE
@@ -200,5 +202,7 @@ optional arguments:
                         The number of R processes [Default:1]
   -gb ENZYME_METABOLITE_FILE, --mgx_mbx ENZYME_METABOLITE_FILE
                         Enzymatic gene-metabolite interaction [Default:NA]
+  -p PVALUE, --pvalue PVALUE
+                        Threshold of p-value
                    
 ```
