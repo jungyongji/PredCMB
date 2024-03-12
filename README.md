@@ -166,15 +166,23 @@ $ Rscript run_prediction.R -i genefamilies_ex.tsv -m metadata_ex.tsv -o output.t
 The output file provides a comprehensive overview of predicted metabolite changes based on microbial gene family abundance. Each entry includes the KEGG compound identity (metabolite_KEGG_ID), the name of the metabolite (metabolite_name), its class (metabolite_class_name), the z-value indicating the magnitude and direction of change (metabolite_z_value), and statistical significance measures (p-value and adjusted p-value).
 
 
-
+| metabolite_KEGG_ID | metabolite_name              | metabolite_class_name                       | metabolite_z_value | statistics | metabolite_p-value | metabolite_adjusted_p-value |
+|--------------------|------------------------------|---------------------------------------------|--------------------|------------|--------------------|-----------------------------|
+| C00005             | NADPH                        | Benzenediols                                | 7.7598             | 4.82E-07   | 0.00015247         | 0.001031                    |
+| C00017             | Protein                      | NA                                          | 0.1532             | 0.31934    | 0.45353            | 0.2204                      |
+| C00021             | S-Adenosyl-L-homocysteine    | Lactones                                    | -0.58743           | 0.12552    | 0.2204             | 0.0031599                   |
+| C00022             | Pyruvate                     | Alpha-keto acids and derivatives            | 6.3454             | 3.00E-05   | 0.0031599          | 0.001031                    |
+| C00024             | Acetyl-CoA                   | Carbohydrates and carbohydrate conjugates   | 7.8399             | 6.53E-06   | 0.001031           | 0.001031                    |
+| C00025             | L-Glutamate                  | Amino acids, peptides, and analogues        | 7.8941             | 5.66E-06   | 0.001031           | 0.001031                    |
 ```
-  metabolite_KEGG_ID metabolite_name metabolite_class_name metabolite_z_value statistics metabolite_p-value metabolite_adjusted_p-value
-1     C00005  NADPH Benzenediols  7.7598  4.82E-07  0.00015247
-2     C00017  Protein NA  0.1532  0.31934 0.45353
-3     C00021  S-Adenosyl-L-homocysteine Lactones  -0.58743  0.12552 0.2204
-4     C00022  Pyruvate  Alpha-keto acids and derivatives  6.3454  3.00E-05  0.0031599
-5     C00024  Acetyl-CoA  Carbohydrates and carbohydrate conjugates 7.8399  6.53E-06  0.001031
-6     C00025  L-Glutamate Amino acids, peptides, and analogues  7.8941  5.66E-06  0.001031
+| metabolite_KEGG_ID | metabolite_name              | metabolite_class_name                       | metabolite_z_value | statistics | metabolite_p-value | metabolite_adjusted_p-value |
+|--------------------|------------------------------|---------------------------------------------|--------------------|------------|--------------------|-----------------------------|
+| C00005             | NADPH                        | Benzenediols                                | 7.7598             | 4.82E-07   | 0.00015247         | 0.001031                    |
+| C00017             | Protein                      | NA                                          | 0.1532             | 0.31934    | 0.45353            | 0.2204                      |
+| C00021             | S-Adenosyl-L-homocysteine    | Lactones                                    | -0.58743           | 0.12552    | 0.2204             | 0.0031599                   |
+| C00022             | Pyruvate                     | Alpha-keto acids and derivatives            | 6.3454             | 3.00E-05   | 0.0031599          | 0.001031                    |
+| C00024             | Acetyl-CoA                   | Carbohydrates and carbohydrate conjugates   | 7.8399             | 6.53E-06   | 0.001031           | 0.001031                    |
+| C00025             | L-Glutamate                  | Amino acids, peptides, and analogues        | 7.8941             | 5.66E-06   | 0.001031           | 0.001031                    |
 
 ```
 
