@@ -65,4 +65,4 @@ results$class_adjusted_p_value <- p.adjust(results$class_p_value, method='BH')
 write.table(results, args$output, row.names=FALSE, sep='\t')
 
 
-# Rscript run_summary.R -i output_ex.tsv -s 5 -o summary_results.tsv
+# Rscript run_summary.R -i output.tsv -s 5 -o summary_results.tsv

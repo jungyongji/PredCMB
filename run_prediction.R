@@ -100,9 +100,6 @@ signres_fc <- signres['log2FoldChange']
 gene_metabolite <- fread(gml)
 gene_metabolite <- loadGSC(gene_metabolite)
 
-#saveRDS(met2, file ='./interactions/uniref_com_e_oc.rds')
-#met3 <- readRDS('./interactions/uniref_com_kerk_oc.rds')
-
 
 ## Run Reporter analysis ##
 gsa_rep <- runGSA(signres_pv,
@@ -150,4 +147,4 @@ write.table(results_table, output, row.names = FALSE, sep = '\t')
 
 
 # Example #
-#Rscript run_prediction.R -i abun_int_prism_cpm.tsv -m prism_cohort_CD.tsv -o output.tsv -r "Control" -c 15 -gb ../reporter/uniref_com_kerk_oc.tsv -p 0.05
+#Rscript run_prediction.R -i genefamilies.tsv -m metadata.tsv -o output.tsv -r "Control" -c 15 -gb ./interactions/uniref_com_kerk_oc.tsv -p 0.05

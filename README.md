@@ -58,7 +58,7 @@ $ Rscript run_prediction.R -i $SAMPLE -m $METADATA -o $OUTPUT -r $CONTROL -gb $I
 
 `$INTERACTION` = Gene family and metabolite interaction file in .tsv format.
 
-`$PVALUE` = Significance level required in Deseq2 analysis.
+`$PVALUE` = Significance level required in DESeq2 analysis.
 
 
 - - -
@@ -132,7 +132,7 @@ sample6        CD
 ### 3. interaction_ex ###
 
 
-The interaction_ex.tsv file represents the gene family and metabolites produced by its enzyme reaction.
+The interaction_ex.tsv file represents the gene family and metabolites produced by its enzyme reaction. If you wish to quickly and easily run the example files and obtain results, use the interaction_ex.tsv file, which includes a subset of gene-metabolite interactions as shown in the examples below. **For access to comprehensive gene-metabolite interaction data, it is recommended to use the uniref_com_kerk_oc.tsv file located in the interactions directory.**
 
 
 ```
@@ -154,7 +154,7 @@ If you execute the command below, you perform a differential analysis of the gen
 
 
 ```
-$ Rscript run_prediction.R -i genefamilies_ex.tsv -m metadata_ex.tsv -o output.tsv -r "Control" -gb interaction_ex.tsv -p 0.05
+$ Rscript run_prediction.R -i example_data/genefamilies_ex.tsv -m example_data/metadata_ex.tsv -o ./output_ex.tsv -r "Control" -gb example_data/genefamilies_ex.tsv -p 0.05 -c 4
 ```
 
 
@@ -163,7 +163,8 @@ $ Rscript run_prediction.R -i genefamilies_ex.tsv -m metadata_ex.tsv -o output.t
 ## Example output ##
 
 
-The output file provides a comprehensive overview of predicted metabolite changes based on microbial gene family abundance. Each entry includes the KEGG compound identity (metabolite_KEGG_ID), the name of the metabolite (metabolite_name), its class (metabolite_class_name), the z-value indicating the magnitude and direction of change (metabolite_z_value), and statistical significance measures (p-value and adjusted p-value).
+The output file provides a comprehensive overview of predicted metabolite changes based on microbial gene family abundance. Each entry includes the KEGG compound identity (metabolite_KEGG_ID), the name of the metabolite (metabolite_name), its class (metabolite_class_name), the z-value indicating the magnitude and direction of change (metabolite_z_value), and statistical significance measures (p-value and adjusted p-value). The table below represents the results from the .tsv file in a tabular format.
+
 
 
 | metabolite_KEGG_ID | metabolite_name              | metabolite_class_name                       | metabolite_z_value | statistics | metabolite_p-value | metabolite_adjusted_p-value |
@@ -174,17 +175,6 @@ The output file provides a comprehensive overview of predicted metabolite change
 | C00022             | Pyruvate                     | Alpha-keto acids and derivatives            | 6.3454             | 3.00E-05   | 0.0031599          | 0.001031                    |
 | C00024             | Acetyl-CoA                   | Carbohydrates and carbohydrate conjugates   | 7.8399             | 6.53E-06   | 0.001031           | 0.001031                    |
 | C00025             | L-Glutamate                  | Amino acids, peptides, and analogues        | 7.8941             | 5.66E-06   | 0.001031           | 0.001031                    |
-```
-| metabolite_KEGG_ID | metabolite_name              | metabolite_class_name                       | metabolite_z_value | statistics | metabolite_p-value | metabolite_adjusted_p-value |
-|--------------------|------------------------------|---------------------------------------------|--------------------|------------|--------------------|-----------------------------|
-| C00005             | NADPH                        | Benzenediols                                | 7.7598             | 4.82E-07   | 0.00015247         | 0.001031                    |
-| C00017             | Protein                      | NA                                          | 0.1532             | 0.31934    | 0.45353            | 0.2204                      |
-| C00021             | S-Adenosyl-L-homocysteine    | Lactones                                    | -0.58743           | 0.12552    | 0.2204             | 0.0031599                   |
-| C00022             | Pyruvate                     | Alpha-keto acids and derivatives            | 6.3454             | 3.00E-05   | 0.0031599          | 0.001031                    |
-| C00024             | Acetyl-CoA                   | Carbohydrates and carbohydrate conjugates   | 7.8399             | 6.53E-06   | 0.001031           | 0.001031                    |
-| C00025             | L-Glutamate                  | Amino acids, peptides, and analogues        | 7.8941             | 5.66E-06   | 0.001031           | 0.001031                    |
-
-```
 
 
 
