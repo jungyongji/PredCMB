@@ -1,4 +1,4 @@
-## Load library ##
+# Load library #
 library_requirement <- c("argparse","DESeq2","data.table","BiocParallel","ggplot2","dplyr","scales","piano")
 for (libr in library_requirement){
   if (libr %in% installed.packages()[,"Package"] == FALSE){
@@ -10,12 +10,13 @@ for (libr in library_requirement){
   suppressPackageStartupMessages(require(libr, character.only = TRUE))
 }
 
-#if (length(args) <= 2) {
-#  stop("At least three arguments must be supplied", call.=FALSE)
-#}
+##if (length(args) <= 2) {
+##  stop("At least three arguments must be supplied", call.=FALSE)
+##}
 
 
-## Set argument ##
+
+# Set argument #
 parser <- ArgumentParser()
 
 parser$add_argument("-i", "--input", action='store',
@@ -76,7 +77,7 @@ dds <- DESeqDataSetFromMatrix(countData = abundance_table,
 
 
 ## Run DESeq2 ##
-# Use SnowParam on Windows
+## Use SnowParam on Windows ##
 if (.Platform$OS.type == "windows") {
 	  BPPARAM <- SnowParam(cores)
 } else {
@@ -86,7 +87,6 @@ if (.Platform$OS.type == "windows") {
 dds_res <- DESeq(dds, sfType = "poscounts", parallel = T, BPPARAM = BPPARAM)
 res <- results(dds_res, alpha = pvalue, name = resultsNames(dds_res)[2], parallel = T, BPPARAM = BPPARAM )
 res <- as.data.frame(res)
-#write.table(res, output, sep = '\t')
 
 
 # Reporter analysis #
@@ -104,7 +104,6 @@ gene_metabolite <- loadGSC(gene_metabolite)
 #met3 <- readRDS('./interactions/uniref_com_kerk_oc.rds')
 
 
-
 ## Run Reporter analysis ##
 gsa_rep <- runGSA(signres_pv,
                   signres_fc,
@@ -116,13 +115,38 @@ gsa_rep <- runGSA(signres_pv,
 
 
 
-## Save predicted metabolite's statistics ##
-gsa_table <- GSAsummaryTable(gsa_rep)
-metabolite_name <- read.csv('./interactions/raw/kegg_cpd_name_v2021-11-24.tsv', sep = '\t')
-merged_data <- merge(gsa_table, metabolite_name, by.x = "Name", by.y = "cpd", all.x = TRUE)
-selected_data <- merged_data[c(1, ncol(merged_data), 2:5) ]
-colnames(selected_data) <- c("metabolite", "name", "genes", "statistics", "p-value", "adj-pvalue")
-GSAsummaryTable(selected_data, save = TRUE, output)
+# Save predicted metabolite's statistics #
+GSAsummaryTable(gsa_rep, save = TRUE, output)
+gsa_table <- read.csv(output, sep = '\t')
+
+## Filtering ##
+gsa_up <- gsa_table %>% filter( p..dist.dir.up. < p..dist.dir.dn.)
+gsa_up_extracted <- gsa_up[c('Name', 'Stat..dist.dir.up.', 'p..dist.dir.up.', 'p.adj..dist.dir.up.')]
+colnames(gsa_up_extracted) <- c('cpd', 'stat', 'pvalue','adj-pvalue')
+
+gsa_down <- gsa_table %>% filter( p..dist.dir.up. > p..dist.dir.dn.)
+gsa_down_extracted <- gsa_down[c('Name', 'Stat..dist.dir.dn.', 'p..dist.dir.dn.','p.adj..dist.dir.dn.')]
+colnames(gsa_down_extracted) <- c('cpd', 'stat', 'pvalue','adj-pvalue')
+
+
+metabolite_stat <- rbind(gsa_up_extracted, gsa_down_extracted)
+metabolite_name <- read.csv('interactions/raw/kegg_cpd_name_v2021-11-24.tsv', sep = '\t')
+
+hmdb_class <- read.csv('interactions/raw/hmdb_class_curation.tsv', sep = '\t')
+hmdb_class <- hmdb_class[c('cpd','class')]
+hmdb_class <- unique(hmdb_class)
+
+stat_name <- merge(metabolite_stat, metabolite_name, by = 'cpd')
+stat_name_class <- merge(stat_name, hmdb_class, by = 'cpd', all.x = TRUE)
+
+stat_name_class_undup <- stat_name_class[-which(duplicated(stat_name_class$cpd)),]
+
+results_table <- stat_name_class_undup[c("cpd", "name", "class", "stat", "pvalue", "adj-pvalue")]
+
+## Rename columns ##
+colnames(results_table) <- c("metabolite_KEGG_ID", "metabolite_name", "metabolite_class_name", "metabolite_z_value", "metabolite_p-value", "metabolite_adjusted_p-value")
+
+write.table(results_table, output, row.names = FALSE, sep = '\t')
 
 
 # Example #
