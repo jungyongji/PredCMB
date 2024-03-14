@@ -61,6 +61,10 @@ $ Rscript run_prediction.R -i $SAMPLE -m $METADATA -o $OUTPUT -r $CONTROL -gb $I
 `$PVALUE` = Significance level required in DESeq2 analysis.
 
 
+
+The gene-metabolite interaction file is located at /interactions/uniref_com_kerk_oc.tsv. The compounds are curated based on KEGG, and the genes are curated based on UniRef90, both as of the November 2021 version.
+
+
 - - -
 
 # Example
@@ -132,7 +136,8 @@ sample6        CD
 ### 3. interaction_ex ###
 
 
-The interaction_ex.tsv file represents the gene family and metabolites produced by its enzyme reaction. If you wish to quickly and easily run the example files and obtain results, use the interaction_ex.tsv file, which includes a subset of gene-metabolite interactions as shown in the examples below. **For access to comprehensive gene-metabolite interaction data, it is recommended to use the uniref_com_kerk_oc.tsv file located in the interactions directory.**
+
+The interaction_ex.tsv file represents the gene family and metabolites produced by its enzyme reaction. If you wish to quickly and easily run the example files and obtain results, use the interaction_ex.tsv file, which includes a subset of gene-metabolite interactions as shown in the examples below. **If you are interested in conducting a real analysis, please use the /interactions/uniref_com_kerk_oc.tsv file.**
 
 
 ```
